@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Python Counter</title>
+
+    <link rel="stylesheet"
+          href="https://pyscript.net/releases/2025.8.1/core.css">
+
+    <script type="module"
+            src="https://pyscript.net/releases/2025.8.1/core.js"></script>
+</head>
+
+<body>
+
+    <h1>Python Counter 🐍</h1>
+
+    <p id="count">0</p>
+
+    <button id="minus">−</button>
+    <button id="plus">+</button>
+
+    <script type="py">
+from pyscript import document
+from pyodide.ffi import create_proxy
+
+count = 0
+
+def increase(event):
+    global count
+    count += 1
+    document.querySelector("#count").innerText = str(count)
+
+def decrease(event):
+    global count
+    count -= 1
+    document.querySelector("#count").innerText = str(count)
+
+plus = document.querySelector("#plus")
+minus = document.querySelector("#minus")
+
+plus.addEventListener("click", create_proxy(increase))
+minus.addEventListener("click", create_proxy(decrease))
+    </script>
+
+</body>
+</html>
