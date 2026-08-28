@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Python Counter</title>
+
+    <link rel="stylesheet"
+          href="https://pyscript.net/releases/2025.8.1/core.css">
+
+    <style>
+    #box {
+        width: 200px;
+        padding: 30px;
+        text-align: center;
+        background: lightblue;
+        transition: 0.3s;
+        align-self: center;
+        /* margin-left: 300pt; */
+        margin: auto;
+        /* justify-content: center; */
+    }
+    
+    div {
+        width: 130px;
+        padding: 20px;
+        text-align: center;
+        background: rgb(128, 61, 106);
+        transition: 0.3s;
+        align-self: center;
+        /* margin-left: 300pt; */
+        margin: auto;
+        margin-bottom: 22px;
+        /* justify-content: center; */
+        border-radius: 55px;
+    }
+
+    button {
+        border-radius: 33px;
+        padding: auto;
+        width: 40px;
+        height: 40px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+</style>
+
+
+    <script type="module"
+            src="https://pyscript.net/releases/2025.8.1/core.js"></script>
+</head>
+
+<body>
+
+    <h1 align ="center" id="header">Python Counter </h1>
+
+    <h1 id="count" align ="center">0</h1>
+
+    <div>
+        <button id="minus" align ="center">−</button>
+        
+        <button id="plus" align ="center">+</button>
+    </div>
+    <div id="box" >hii</div>
+
+    <button id="btn" align ="center">click me</button>
+    <script type="py">
+from pyscript import document
+from pyodide.ffi import create_proxy
+
+count = 0
+
+def increase(event):
+    global count
+    count += 1
+    document.querySelector("#count").innerText = str(count)
+
+def decrease(event):
+    global count
+    count -= 1
+    document.querySelector("#count").innerText = str(count)
+
+def hover(event):
+    #document.querySelector("#box").bgcolour = "red"
+    event.target.innerText = "Eww!"
+    event.target.style.backgroundColor = "red"
+    event.target.style.borderRadius = "20px"
+
+def unhover(event):
+    box = event.target
+    event.target.innerText = "hii"
+    event.target.style.backgroundColor = "lightblue"
+    box.style.borderRadius = "30px"
+
+
+
+plus = document.querySelector("#plus")
+minus = document.querySelector("#minus")
+div = document.querySelector("#box")
+div = document.querySelector("#box")
+
+div.addEventListener("mouseover",create_proxy(hover))
+div.addEventListener("mouseout",create_proxy(unhover))
+plus.addEventListener("click", create_proxy(increase))
+minus.addEventListener("click", create_proxy(decrease))
+    </script>
+
+    <script>
+        function msg() {
+            document.querySelector("#header").innerText = "user clicked button";
+        }
+        
+        function msg2() {
+            document.querySelector("#header").innerText = "input reset";
+        }
+        document.querySelector("#btn").addEventListener("click",msg);
+        document.querySelector("#btn").addEventListener("click",msg2);
+    </script>
+    
+</body>
+</html>
