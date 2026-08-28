@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Python Counter</title>
+
+    <link rel="stylesheet" href="https://pyscript.net/releases/2025.8.1/core.css">
+
+    <style>
+        #box 
+        {
+            width: 200px;
+            padding: 30px;
+            text-align: center;
+            background: lightblue;
+            transition: 0.3s;
+            align-self: center;
+            /* margin-left: 300pt; */
+            margin: auto;
+            /* justify-content: center; */
+        }
+    
+        #but 
+        {
+            width: 115px;
+            padding: 20px;
+            text-align: center;
+            background: rgb(128, 61, 106);
+            transition: 0.3s;
+            align-self: center;
+            /* margin-left: 300pt; */
+            margin: auto;
+            margin-bottom: 22px;
+            /* justify-content: center; */
+            border-radius: 93px;
+        }
+
+        button 
+        {
+            border-radius: 63px;
+            /* padding: auto; */
+            width: 90px;
+            height: 90px;
+            margin-left: 10px;
+            margin-right: 10px; 
+        }
+
+    </style>
+
+
+    <script type="module" src="https://pyscript.net/releases/2025.8.1/core.js"></script>
+</head>
+
+<body>
+
+    <h1 align ="center">Stone , Paper , scissor </h1>
+
+    <div>
+        <h1 id="count" align ="center"></h1>
+        <h1 id="count2" align ="center"></h1>
+        <h1 id="result" align ="center"></h1>
+    </div>
+    
+
+    <div id="but">
+        <button id="spin" align ="center">roll a die</button>
+    </div>
+
+    <div id="box" >hii</div>
+
+    <script type="py">
+
+from pyscript import document
+from pyodide.ffi import create_proxy
+import random 
+
+roll =""
+roll2 =""
+
+
+def roll(event):
+    rnd = ["stone","paper","scissor"]
+    global roll
+    roll = random.choice(rnd)  
+    display = "Player 1: " + str(roll)  
+    document.querySelector("#count").innerText = display
+
+def roll2(event):
+    rnd = ["stone","paper","scissor"]
+    global roll2
+    roll2 = random.choice(rnd)    
+    display2 = "Player 2: " + str(roll2) 
+    document.querySelector("#count2").innerText = display2
+
+def winner(event):   
+    if(roll == "stone" and roll2 == "paper") or(roll == "paper" and roll2 == "scissor") or (roll == "scissor" and roll2 == "stone"):
+        winner = "player2"
+    elif(roll == "stone" and roll2 == "stone") or (roll == "paper" and roll2 == "paper") or (roll == "scissor" and roll2 == "scissor"): 
+        winner = "tie"    
+    else :
+        winner = "player1" 
+
+    display3 = "Winner : " + str(winner) 
+    document.querySelector("#result").innerText = display3
+
+def hover(event):
+    #document.querySelector("#box").bgcolour = "red"
+    event.target.innerText = "Eww!"
+    event.target.style.backgroundColor = "red"
+    event.target.style.borderRadius = "20px"
+
+def unhover(event):
+    box = event.target
+    event.target.innerText = "hii"
+    event.target.style.backgroundColor = "lightblue"
+    box.style.borderRadius = "30px"
+
+#<!-- plus = document.querySelector("#plus") -->
+spin = document.querySelector("#spin")
+div = document.querySelector("#box")
+
+div.addEventListener("mouseover",create_proxy(hover))
+div.addEventListener("mouseout",create_proxy(unhover))
+spin.addEventListener("click", create_proxy(roll))
+spin.addEventListener("click", create_proxy(roll2))
+spin.addEventListener("click", create_proxy(winner))
+    </script>
+
+</body>
+</html>
