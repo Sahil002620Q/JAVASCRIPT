@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Python Counter</title>
+
+    <link rel="stylesheet"
+          href="https://pyscript.net/releases/2025.8.1/core.css">
+
+    <style>
+    #box {
+        width: 200px;
+        padding: 30px;
+        text-align: center;
+        background: lightblue;
+        transition: 0.3s;
+        align-self: center;
+        /* margin-left: 300pt; */
+        margin: auto;
+        /* justify-content: center; */
+    }
+    
+    div {
+        width: 115px;
+        padding: 20px;
+        text-align: center;
+        background: rgb(128, 61, 106);
+        transition: 0.3s;
+        align-self: center;
+        /* margin-left: 300pt; */
+        margin: auto;
+        margin-bottom: 22px;
+        /* justify-content: center; */
+        border-radius: 93px;
+    }
+
+    button {
+        border-radius: 63px;
+        /* padding: auto; */
+        width: 90px;
+        height: 90px;
+        margin-left: 10px;
+        margin-right: 10px; 
+    }
+
+</style>
+
+
+    <script type="module"
+            src="https://pyscript.net/releases/2025.8.1/core.js"></script>
+</head>
+
+<body>
+
+    <h1 align ="center">Python Counter </h1>
+
+    <h1 id="count" align ="center">0</h1>
+
+    <div>
+        <button id="minus" align ="center">roll a die</button>
+    </div>
+    <div id="box" >hii</div>
+
+    <script type="py">
+from pyscript import document
+from pyodide.ffi import create_proxy
+import random 
+
+
+
+
+
+def roll(event):
+    num = [1,2,3,4,5,6]
+    roll = random.choice(num)    
+    document.querySelector("#count").innerText = str(roll)
+
+def hover(event):
+    #document.querySelector("#box").bgcolour = "red"
+    event.target.innerText = "Eww!"
+    event.target.style.backgroundColor = "red"
+    event.target.style.borderRadius = "20px"
+
+def unhover(event):
+    box = event.target
+    event.target.innerText = "hii"
+    event.target.style.backgroundColor = "lightblue"
+    box.style.borderRadius = "30px"
+
+
+
+plus = document.querySelector("#plus")
+minus = document.querySelector("#minus")
+div = document.querySelector("#box")
+div = document.querySelector("#box")
+
+div.addEventListener("mouseover",create_proxy(hover))
+div.addEventListener("mouseout",create_proxy(unhover))
+minus.addEventListener("click", create_proxy(roll))
+    </script>
+
+</body>
+</html>
