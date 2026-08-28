@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Python Counter</title>
+
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- byme -->
+    <link rel="stylesheet"
+          href="https://pyscript.net/releases/2025.8.1/core.css">
+
+    <style>
+    #box {
+        width: 200px;
+        padding: 30px;
+        text-align: center;
+        background: lightblue;
+        transition: 0.3s;
+        align-self: center;
+        /* margin-left: 300pt; */
+        margin: auto;
+        /* justify-content: center; */
+    }
+
+   #map {
+    width: 500px;
+    height: 400px;
+    display: block;
+    margin: auto;
+}
+
+  
+    
+    /* div {
+        width: 115px;
+        padding: 20px;
+        text-align: center;
+        background: rgb(128, 61, 106);
+        transition: 0.3s;
+        align-self: center;
+        /* margin-left: 300pt; */
+        /* margin: auto;
+        margin-bottom: 22px;
+        /* justify-content: center; */
+        /* border-radius: 93px; */ 
+    /* }  */
+
+    button {
+        border-radius: 63px;
+        /* padding: auto; */
+        width: 90px;
+        height: 90px;
+        margin-left: 10px;
+        margin-right: 10px; 
+    }
+
+</style>
+
+
+    <script type="module"
+            src="https://pyscript.net/releases/2025.8.1/core.js"></script>
+</head>
+
+<body>
+
+    <h1 align ="center">__MAP__ </h1>
+
+    <h1 id="count" align ="center">0</h1>
+
+    <div>
+        <button id="mapx">location?</button>
+    </div>
+    <!-- <div id="box" >hii</div> -->
+    <!-- <div id="map" ></div> -->
+    <iframe
+    id="map"
+    width="500"
+    height="400"
+    style="border:0;"
+    loading="lazy">
+</iframe>
+<script>
+    let map = L.map("map").setView([0, 0], 2);
+
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap contributors"
+}).addTo(map);
+
+let marker;
+
+window.showLocation = function(lat, lon) {
+
+    map.setView([lat, lon], 5);
+
+    if (marker) {
+        map.removeLayer(marker);
+    }
+
+    marker = L.marker([lat, lon]).addTo(map);
+
+    marker.bindPopup(
+        "ISS<br>Latitude: " + lat +
+        "<br>Longitude: " + lon
+    ).openPopup();
+};
+</script>
+    <script type="py">
+from pyscript import document
+from pyodide.ffi import create_proxy
+import random 
+from js import fetch
+
+
+
+
+async def roll(event):
+    r = await fetch("https://api.open-notify.org/iss-now.json")
+    data = await r.json()
+
+    latti = float(data["iss_position"]["latitude"])
+    longi = float(data["iss_position"]["longitude"])
+
+    document.querySelector("#count").innerText = (
+        f"Lat: {latti}, Lon: {longi}"
+    )
+
+    url = f"https://www.google.com/maps?q={latti},{longi}"
+
+    document.querySelector("#map").src = url
+
+
+mapx = document.querySelector("#mapx")
+div = document.querySelector("#box")
+
+mapx.addEventListener("click", create_proxy(roll))
+    </script>
+
+</body>
+</html>
