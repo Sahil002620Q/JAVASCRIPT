@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <title>Attendance sustem</title>
+        <link rel="stylesheet" href="https://pyscript.net/releases/2025.8.1/core.css">
+        <script type="module" src="https://pyscript.net/releases/2025.8.1/core.js"></script>
+        <style>
+
+            body {
+                background-color: aquamarine;
+            }
+
+            .home {
+                background-color: bisque;
+                padding: 34px;
+                width: 424px;
+                margin: auto;
+                display: block;
+                margin-bottom: 33px;
+                border-radius: 43px;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <H1 align="center" margin-bottom="33px">Attendence manager</H1><br>
+        <button py-click="B1" class="home" id="T">view</button><br>
+        <button class="home" id="T2">Mark Today's Attendance</button><br>
+        <button class="home" id="V3">2</button><br>
+        <button class="home" id="O4">View Attendance by Subject</button><br>
+        <button class="home" id="C5">View Overall Attendance Percentage</button><br>
+        <button class="home" id="D6">View Present/Absent Count</button><br>
+        <button class="home" id="S7">Display Complete Attendance Record</button><br>
+        <button class="home" id="L8">Save Attendance to CSV</button><br>
+        <button class="home" id="D9">8</button><br>
+    </body>
+
+    <script type="py">
+from pyscript import window
+def B1(event):
+    window.location.href = "layout/view.html"
+    </script>
+</html>
